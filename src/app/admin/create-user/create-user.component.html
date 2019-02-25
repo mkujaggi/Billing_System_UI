@@ -1,0 +1,50 @@
+<form [formGroup]="createUserForm" (ngSubmit)="onSubmit()" class="form-horizontal" *ngIf="isReady">
+  <mat-form-field>
+    <input matInput placeholder="Username" formControlName="username" (blur)="usernameAvailability()">
+    <mat-error *ngIf="usernameNotAvail">
+      Username not available.
+    </mat-error>
+  </mat-form-field><br/>
+  <mat-form-field>
+    <input matInput placeholder="First Name" formControlName="FName">
+    <!-- <mat-error *ngIf="FName.hasError('required')">
+      First Name is
+      <strong>required</strong>
+    </mat-error> -->
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Last Name" formControlName="LName">
+    <!-- <mat-error *ngIf="LName.hasError('required')">
+      Last Name is
+      <strong>required</strong>
+    </mat-error> -->
+  </mat-form-field><br/>
+  <mat-form-field>
+    <input matInput placeholder="Password" formControlName="password" type="password">
+    <!-- <mat-error *ngIf="password.hasError('required')">
+      Password is
+      <strong>required</strong>
+    </mat-error> -->
+  </mat-form-field><br/>
+  <mat-form-field>
+    <input matInput placeholder="Confirm Password" formControlName="confirmPassword"
+    type="password" (blur)="checkPassword()">
+    <mat-error *ngIf="passwordNotMatch">
+      Passwords do not match.
+    </mat-error>
+  </mat-form-field><br/>
+  <mat-form-field>
+    <input matInput placeholder="Mobile No." formControlName="phoneNumber">
+    <!-- <mat-error *ngIf="emailFormControl.hasError('length==10')">
+      Phone number should be of length
+      <strong>10</strong>
+    </mat-error> -->
+  </mat-form-field><br/>
+  <mat-form-field>
+    <mat-select placeholder="UserType">
+      <mat-option value="option">Employee</mat-option>
+      <mat-option value="option">Admin</mat-option>
+    </mat-select>
+  </mat-form-field><br/>
+  <button mat-flat-button color="primary" [disabled]="!createUserForm.valid">Submit</button>
+</form>

@@ -1,0 +1,15 @@
+<form [formGroup]="genReport" (ngSubmit)="onSubmit()" class="form-horizontal" *ngIf="isReady">
+  <mat-form-field>
+    <input matInput [min]="minDate" [max]="maxDate"
+    [matDatepicker]="startPicker" placeholder="Start date" formControlName="dateStart">
+    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+    <mat-datepicker #startPicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [min]="minDate" [max]="maxDate"
+    [matDatepicker]="endPicker" placeholder="End date" formControlName="dateEnd">
+    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+    <mat-datepicker #endPicker></mat-datepicker>
+  </mat-form-field>
+  <button mat-flat-button color="primary">Generate</button>
+</form>

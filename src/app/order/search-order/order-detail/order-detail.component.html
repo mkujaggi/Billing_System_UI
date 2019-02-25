@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>Order Deatils : {{data.orderId}}</h1>
+<div mat-dialog-content>
+  <div>
+    <label>Customer Contact: </label>{{data.customerContact}}
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>OrderId</th>
+        <th>Received Date</th>
+        <th>No of Items</th>
+        <th>Status</th>
+        <th>Bill</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{data.orderId}}</td>
+        <td>{{data.orderReceivedDate | date : "d MMMM, y h:m:s"}}</td>
+        <td>{{data.noOfItems}}</td>
+        <td>{{data.orderStatus}}</td>
+        <td>{{data.totalAmount | currency:'INR':'symbol'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tr>
+      <td colspan="5">
+        <div class="container well">
+          <div class="row" style="font-weight: bold; border-style:solid;">
+            <div class="col-md-2">Item</div>
+            <div class="col-md-2">Service</div>
+            <div class="col-md-3">Delivery Date</div>
+            <div class="col-md-3">isCompleted</div>
+            <div class="col-md-2">Amount</div>
+          </div>
+          <div class="row" *ngFor="let value of data.orderItems">
+            <div class="col-md-2">{{value.itemName}}</div>
+            <div class="col-md-2">{{value.itemService}}</div>
+            <div class="col-md-3">{{value.deliveryDate | date : "d MMMM, y h:m:s"}}</div>
+            <div class="col-md-3">{{value.isCompleted}}</div>
+            <div class="col-md-2">{{value.itemPrice | currency:'INR':'symbol'}}</div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3">Comments:</div>
+            <div class="col-md-9">{{data.comments}}</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

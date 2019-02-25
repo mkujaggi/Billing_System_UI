@@ -1,0 +1,10 @@
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.md-width {
+  width: 80%;
+}
+.sm-width {
+  width: 50%
+}

@@ -1,0 +1,37 @@
+.invoice {
+  width: 522px;
+  min-height: 500px;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  color: #555;
+}
+.header {
+  padding: 15px;
+}
+.outer-border {
+  border: 1px solid;
+  min-width: 500px;
+  min-height: 500px;
+}
+.all-border > * {
+  margin: 3px;
+  border: 1px solid;
+}
+.left-border > td {
+  border-right: 1px solid;
+}
+.text-align > * {
+  text-align: center;
+}
+.vertical-align > * {
+  vertical-align: text-top;
+  height: 14px;
+}
+.text-align-right {
+  text-align: right;
+}

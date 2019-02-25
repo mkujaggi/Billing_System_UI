@@ -1,0 +1,91 @@
+<div class="container">
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="form-horizontal" *ngIf="isReady">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Service</th>
+          <th>Price</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr formArrayName="orderItems" *ngFor="let orderItem of orderForm.get('orderItems').controls; let i = index">
+          <ng-container [formGroupName]="i">
+          <td>
+            <!-- <mat-form-field class="md-width" appearance="outline formControlName="itemName""> -->
+              <input type="text" formControlName="itemName"
+              class="form-control" [matAutocomplete]="autoName">
+              <mat-autocomplete #autoName="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOrderItems[i] | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            <!-- </mat-form-field> -->
+            <!-- <input type="text" formControlName="itemName" class="form-control"> -->
+          </td>
+          <td>
+            <!-- <mat-form-field class="md-width" appearance="outline" > -->
+              <input type="text" formControlName="itemService"
+              class="form-control" [matAutocomplete]="autoService" (keyup)="findRateListPrice(i)">
+              <mat-autocomplete #autoService="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOrderServices[i] | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            <!-- </mat-form-field> -->
+            <!-- <input type="text" formControlName="itemService" class="form-control"> -->
+          </td>
+          <td>
+            <!-- <mat-form-field class="sm-width" appearance="outline"> -->
+              <input class="form-control" type="text" formControlName="itemPrice"
+              [value]="rateListPrice[i] == unidentified ? 0 : rateListPrice[i]" (keyup)="findTotal()">
+            <!-- </mat-form-field> -->
+          </td>
+          <td><button type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">Delete</button></td>
+          </ng-container>
+        </tr>
+      </tbody>
+      <tr>
+        <td><button type="button" class="btn btn-success" (click)="onAddItem()">Add Item</button></td>
+        <td></td>
+        <td>Total : </td>
+        <td><input type="text" value="{{total}}" class="form-control" formControlName="totalAmount" id="totalAmount"></td>
+        <input hidden type="text" value="{{totalItems}}" formControlName="noOfItems" id="noOfItems">
+      </tr>
+      <tr>
+        <td colspan="3">Comments:
+          <textarea class="form-control" formControlName="comments" name="comments" id="comments" cols="8" rows="3"></textarea>
+        </td>
+
+        <td>Customer Contact:
+          <input type="text" class="form-control" formControlName="customerContact" id="customerContact">
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td *ngIf="submittedOrderId==0 || submittedOrderId==404"><button type="submit"  [disabled]="!orderForm.valid" class="btn btn-success">Save</button></td>
+      </tr>
+    </table>
+  </form>
+</div>
+<div *ngIf="submittedOrderId!=0">
+  <div class="alert alert-success">
+    <h4>Order created.Order Id: {{submittedOrderId}}</h4>
+    <button  type="submit" class="btn btn-success" (click)='refreshPage(1)'>OK</button>
+  </div>
+</div>
+<div *ngIf="submittedOrderId==404">
+  <div class="alert alert-danger">
+    <h4>Server Error</h4>
+    <button type="submit" class="btn btn-success" (click)='refreshPage(0)'>OK</button>
+  </div>
+</div>
+<div *ngIf="isFormValid==false">
+  <div class="alert alert-danger">
+    <h6>Item Name, Item Service and Price are required Fields.</h6>
+    <button type="submit" class="btn btn-success" (click)='refreshPage(0)'>OK</button>
+  </div>
+</div>

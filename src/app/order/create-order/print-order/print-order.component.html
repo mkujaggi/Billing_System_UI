@@ -1,0 +1,34 @@
+<button type="submit" (click)="printElement()">Print</button>
+<button (click)="closeDialog()">Close</button>
+<div class="invoice" id="invoice-template">
+  <!-- <svg id="code128"></svg> -->
+  <table class="outer-border">
+    <tr style="height: 10px">
+      <td colspan="2" class="header">
+        <h3>White House</h3>
+        <h6>DryCleaners</h6>
+      </td>
+      <td>
+        OrderId: {{data.orderId}} <br>
+        Date: {{data.orderReceivedDate}} <br>
+      </td>
+    </tr>
+    <tr class="all-border text-align" style="height: 14px">
+        <th>Item</th>
+        <th>Service</th>
+        <th>Price</th>
+    </tr>
+    <tr *ngFor="let item of data.orderItems; index as i" class="left-border text-align">
+      <td>{{item.itemName}}</td>
+      <td>{{item.itemService}}</td>
+      <td>{{item.itemPrice}}</td>
+    </tr>
+    <tr class="all-border text-align" style="height: 14px">
+      <td colspan="2" class="text-align-right">
+        Total:
+      </td>
+      <td>{{data.totalAmount}}</td>
+    </tr>
+  </table>
+</div>
+
